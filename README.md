@@ -1,4 +1,4 @@
-# zsh-pinyin-completeion-py
+# zsh-pinyin-completion-py
 ## ZSH拼音补全，pypinyin实现
 
 ## 特色：
