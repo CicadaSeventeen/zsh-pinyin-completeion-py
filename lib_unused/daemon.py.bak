@@ -52,14 +52,17 @@ def main():
             os.environ.update(client_data_list[2])
         except:
             os.environ.update(env_old)
+        #print(os.environ)
+        #os.environ.update(dict(pickle.loads(tmp)))
         try:
-            server_data = cmplt.main(target=client_data_list[0],path=client_data_list[1])
+            string_return = cmplt.main(target=client_data_list[0],path=client_data_list[1])
     # 向客户端发送数据
-            server_data_pickle = pickle.dumps(server_data)
-            client.send(server_data_pickle)
+            server_data = string_return.encode()
+            client.send(server_data)
             client.close()
         except:
             pass
+
 
 if __name__ == "__main__":
     if sys.platform.startswith('linux'):

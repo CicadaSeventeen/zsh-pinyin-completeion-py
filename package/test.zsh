@@ -3,7 +3,7 @@ zmodload zsh/parameter
 setopt extended_glob
 compinit
 zstyle ':completion:*' insert-tab false
-zstyle ':completion:*' completer _polLingua_smart
+zstyle ':completion:*' completer _polLingua_turbo
 if [[ `uname` == (#i)'Linux'* ]];then
     python3 ./python/daemon.py &!;_pid_polLingua_daemon=$!
 else

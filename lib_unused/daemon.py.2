@@ -5,6 +5,16 @@ import sys
 import completion as cmplt
 import json
 
+def cleanup(signum, frame=None):
+    if signum == 2 or signum == 15:
+        try:
+            server.close()
+        except:
+            pass
+        if os.path.exists(socket_path):
+            os.unlink(socket_path)
+        sys.exit(0)
+
 def main():
     # 定义socket文件路径
     XDG_RUNTIME_DIR = os.environ.get("XDG_RUNTIME_DIR")
@@ -28,29 +38,24 @@ def main():
             client, addr = server.accept()
     # 接收客户端数据
             client_data = client.recv(4096).decode().split('\n')
-            try:
-                os.environ.update(json.loads(client_data[2]))
-            except:
-                pass
+            #print(client_data[2])
+            tmp=client_data[2]
+            print(tmp)
+            print()
+            print(json.loads(tmp))
+            os.environ.update(json.loads(client_data[2]))
+            #try:
+            #    os.environ.update(json.loads(client_data[2]))
+            #except:
+            #    pass
             #print(client_data[0],client_data[1])
             string_return = cmplt.main(target=client_data[0],path=client_data[1])
     # 向客户端发送数据
-            server_data = string_return.encode()
+            server_data = json.dumps(string_return).encode()
             client.send(server_data)
             client.close()
     except:
         cleanup(2)
-
-def cleanup(signum, frame=None):
-    if signum == 2 or signum == 15:
-        try:
-            server.close()
-        except:
-            pass
-        if os.path.exists(socket_path):
-            os.unlink(socket_path)
-        sys.exit(0)
-
 
 if __name__ == "__main__":
     if sys.platform.startswith('linux'):

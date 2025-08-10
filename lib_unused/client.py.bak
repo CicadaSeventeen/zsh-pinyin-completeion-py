@@ -22,9 +22,9 @@ def main(target,path='.'):
     client_data_pickle = pickle.dumps(client_data_list)
     client.send(client_data_pickle)
     # 接收服务器回复
-    server_data_pickle = client.recv(65536)
+    server_data = client.recv(65536).decode()
     client.close()
-    return pickle.loads(server_data_pickle)
+    return server_data
 
 if __name__ == "__main__":
     main(target='',path='.')
