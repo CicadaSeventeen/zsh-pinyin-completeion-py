@@ -19,11 +19,6 @@ zstyle ':completion:*' completer _commands _polLingua_smart _complete _correct _
 
 除了`_polLingua_smart`之外还有一些其他completer可用，但暂不建议一般用户使用，如有需要请查看`completer.zsh`。注意部分completer还在开发中，无法使用；另一些是为内部调用或测试准备的，一般不适合直接使用。
 
-## Daemon(turbo)模式
-普通模式对cpu要求较大，如果你觉得卡顿，可以使用Daemon模式。在zshrc中`source daemon.zsh`即可解决。
-##### NOTE:
-deamon模式采用了Linux的prctl，在非Linux系统如macos或BSD仍然应当可用，但可能无法很优雅地正常关闭。若出现驻留的残余daemon，应当没有实质影响，但是会很丑陋
-
 ## 配置方法：环境变量，注意需要`export`
 #### `COMPLETION_TYPE`
 进行补全的文字类型，目前支持chinese和unicode
